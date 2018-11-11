@@ -171,7 +171,7 @@ namespace MyLinkedListLib
             else
             {
                 var prevNode = GetNode(index - 1);
-                var nextNode = GetNode(index);
+                var nextNode = prevNode.nextNode;
                 var newNode = new ListNode<T>(item, nextNode);
                 prevNode.nextNode = newNode;
             }

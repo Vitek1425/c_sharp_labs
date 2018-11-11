@@ -128,12 +128,10 @@ namespace ContactList
                             long beginUnixDate = dateRangeDialog.BeginUnixDate();
                             long endUnixDate = dateRangeDialog.EndUnixDate();
 
-                            _dbConnection.Contacts.Where(e =>
+                            Contacts = _dbConnection.Contacts.Local.Where(e =>
                                 e.BirthDate > beginUnixDate &&
                                 e.BirthDate < endUnixDate
-                            ).Load();
-                            Contacts = _dbConnection.Contacts.Local.ToBindingList();
-                            ;
+                            );
                         }
                     });
                 }

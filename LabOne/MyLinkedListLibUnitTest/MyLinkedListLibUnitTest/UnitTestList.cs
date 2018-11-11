@@ -47,6 +47,19 @@ namespace MyLinkedListLibUnitTest
         }
 
         [TestMethod]
+        public void TestReusable()
+        {
+            MyLinkedList<int> list = new MyLinkedList<int>();
+
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            int[] testDataOne = new int[] { 1, 2, 3 };
+            Assert.AreEqual(true, Enumerable.SequenceEqual(testDataOne, list.ToArray()));
+            Assert.AreEqual(true, Enumerable.SequenceEqual(testDataOne, list.ToArray()));
+        }
+
+        [TestMethod]
         public void TestRemove()
         {
             MyLinkedList<int> list = new MyLinkedList<int>();
