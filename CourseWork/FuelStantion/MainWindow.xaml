@@ -1,0 +1,107 @@
+﻿<Window x:Class="FuelStantion.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FuelStantion"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <local:DateTimeToDateConverter x:Key="DateConverter"/>
+    </Window.Resources>
+    <DockPanel>
+        <Menu Height="25" DockPanel.Dock="Top">
+            <MenuItem Header="User">
+                <MenuItem 
+                    Header="Authorization" 
+                    x:Name="AuthorizationMenu"
+                    Click="AuthorizationMenu_Click">
+                </MenuItem>
+                <MenuItem 
+                    Header="Add User" 
+                    x:Name="AddUserMenu"
+                    Command="{Binding AddUserCommand}">
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="OrderMenu" Header="Order">
+                <MenuItem 
+                        Header="Add Refilling" 
+                        x:Name="AddRefillingMenu"
+                        Command="{Binding AddRefillingCommand}">
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="PlotsMenu" Header="Plots">
+                <MenuItem 
+                        Header="Sold Fuel Volume" 
+                        x:Name="FuelVolumePlot"
+                        Command="{Binding ShowFuelVolumePlotCommand}">
+                </MenuItem>
+            </MenuItem>
+        </Menu>
+        <StatusBar 
+            DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Name="StatusBar" />
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl>
+            <TabItem x:Name="StorageTabItem" Header="Storage">
+                <DataGrid x:Name="fuelStorageGrid" 
+                      AutoGenerateColumns="False" IsReadOnly="True" Margin="10"
+                      ItemsSource="{Binding FuelStorages}"
+                      SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Name" Binding="{Binding FuelType.Name}" />
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
+                        <DataGridTextColumn Header="Volume" Binding="{Binding Volume}" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu >
+                        <ContextMenu x:Name="EditStorageMenu" >
+                            <MenuItem Header="Edit" Command="{Binding EditStorageCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </TabItem>
+            <TabItem x:Name="RefillingTabItem" Header="Refilling">
+                <DataGrid x:Name="fuelRefillingGrid" 
+                          AutoGenerateColumns="False" IsReadOnly="True" Margin="10"
+                          ItemsSource="{Binding FuelRefillings}"
+                          SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Fuel" Binding="{Binding FuelType.Name}" />
+                        <DataGridTextColumn Header="Operator Name" Binding="{Binding OperatorName}" />
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date, Converter={StaticResource DateConverter}}" />
+                        <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
+                        <DataGridTextColumn Header="Volume" Binding="{Binding Volume}" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu >
+                        <ContextMenu x:Name="EditRefillingMenuItem" >
+                            <MenuItem Header="Edit" Command="{Binding EditRefillingCommand}" 
+                                      CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </TabItem>
+            <TabItem x:Name="UsersGridItem" Header="Users">
+                <DataGrid x:Name="usersGrid" 
+                      AutoGenerateColumns="False" IsReadOnly="True" Margin="10"
+                      ItemsSource="{Binding Users}"
+                      SelectionMode="Single">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Login" Binding="{Binding Login}" />
+                        <DataGridTextColumn Header="Type" Binding="{Binding Type}" />
+                    </DataGrid.Columns>
+                    <DataGrid.ContextMenu>
+                        <ContextMenu >
+                            <MenuItem Header="New Password" Command="{Binding EditUserPasswordCommand}" 
+                                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}"/>
+                            <MenuItem Header="Edit Type" Command="{Binding EditUserTypeCommand}" 
+                                        CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ContextMenu}}, Path=PlacementTarget.SelectedItem}"/>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>

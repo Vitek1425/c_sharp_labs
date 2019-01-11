@@ -1,0 +1,50 @@
+﻿<Window x:Class="FuelStantion.EditStorageDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FuelStantion"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="EditStorageDialog" Height="158.451" Width="300">
+    <StackPanel Margin="0,0,0,0">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock 
+                Grid.Column="0" 
+                Grid.Row="0">Fuel</TextBlock>
+            <TextBox 
+                Grid.Column="1" 
+                Grid.Row="0" 
+                Name="fuelTextBox" 
+                IsReadOnly="True"
+                Text="Fuel" />
+            <TextBlock 
+                Grid.Column="0" 
+                Grid.Row="1">Volume</TextBlock>
+            <xctk:DecimalUpDown Grid.Column="1" Grid.Row="1" Name="volumeSpinBox" Value="0.0" Minimum ="0.0" />
+            <TextBlock 
+                Grid.Column="0" 
+                Grid.Row="2">Price</TextBlock>
+            <xctk:DecimalUpDown Grid.Column="1" Grid.Row="2" Name="priceSpinBox" Value="0.0" Minimum ="0.0" />
+            
+        </Grid>
+        <Separator Height="20" Background="Transparent"/>
+        <StackPanel Orientation="Horizontal">
+            <Separator Width="65" Background="Transparent"/>
+            <Button x:Name="OkButton" Width="100" Content="Ok" Click="OkButton_Click"/>
+            <Separator Width="20" Background="Transparent"/>
+            <Button x:Name="CancelButton" Width="100" Content="Cancel" IsCancel="True"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
